@@ -1,0 +1,63 @@
+1. 보안 설정 해제
+	-원활한 수업을 위한 설정
+
+1) 방화벽
+	-/etc/sysconfig/iptables
+	rm -f /etc/sysconfig/iptables
+
+2) SELinux
+	-/etc/sysconfig/selinux
+	SELINUX=enforcing -> disabled
+
+취약점이 많이 존재하는 웹 서버를 구축
+	-제로보드: 공개 게시판
+
+1) 동작 환경
+	-아파치 웹 서버
+	-MYSQL DB
+	-PHP
+
+2) 설치
+	1. 아파치 웹 서버
+		yum search httpd
+		yum -y install httpd.i386
+	
+	3. MYSQL DB
+		yum -y install mysql.i386
+		yum -y install mysql-server.i386
+
+	2. PHP
+		yum -y install php.i386
+		yum -y install php-mysql.i386
+
+3) 동작 확인
+	-아파치 웹 서버(서비스) 실행
+		service httpd start <- 실행
+
+		netstat -ant -> 80
+		ps -ef|grep httpd => httpd실행중인지 확인
+
+	-MYSQL server 실행
+		service mysqld start <- 실행
+
+		netstat -ant -> 3306포트 확인
+		ps -ef|grep mysqld -> mysqld실행중인지 확인
+	
+	-PHP 실행
+		php는 apache에 의해서 모듈화 됨.
+		php는 인터프리터임.
+
+*ip다시 받는법: service network restart
+
+*MYSQL root계정은 리눅스 root계정과 무관함.
+
+<mysql 사용>
+	1. mysql root사용자에 대한 패스워드 설정
+		mysqladmin -u root password <password>
+		이후 mysql -u root -p로 로그인
+	
+php설정:
+	vi /etc/php.ini
+		-> 457, 461라인을 On으로.
+	service httpd restart
+
