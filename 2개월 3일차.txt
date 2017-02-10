@@ -1,0 +1,43 @@
+	<zboard 사용>
+
+*schema.sql: sql쿼리 스크립트 파일?
+
+schema.sql파일 수정:
+	29, 234, 288번 라인: password가 잘릴 수 있음: 20 -> 50으로
+	
+	139, 216, 284, 304, 318, 332, 346번 라인: primary key와 default는 공존할 수 없다.
+		primary key값이 중복값을 허용하지 않음.
+	
+*zboard id passwd: admin abcde1234
+
+*info.cern.ch: 최초의 웹사이트; 팀 버너스리(1989년) - w3c 관리자.
+
+*1995년 최초로 웹에서 움직이는 화면 구현 java aplet -> hot java
+
+*web 1.0: 문서만 교환
+
+*web 2.0: 동적 페이지
+
+웹브라우저에서의 입력값 전달
+
+1. GET:
+	-URL을 통해서 전달하는 방식.
+	예) http://sports.news.naver.com/basketball/vod/index.nhn?category=wkbl&listType=total&id=273696
+	=> http:// #프로토콜
+	=> sports.news.naver.com #접속할 서버의 도메인.
+	=> /basketball/vod/index.nhn #요청하는 파일의 경로.
+	=> ?category=wkbl&listType=total&id=273696 #?가 URL과 변수 사이의 구분자이고, 뒤의 내용이 입력값.
+	
+	단점: 
+		서버의 정보가 외부에 너무 쉽게 노출됨.
+		전달하려는 데이터의 크기가 정해져 있다.
+		공격자가 입력을 url을 통해 할 수 있음.
+
+2. POST:
+	-HTTP Message Body를 통해서 전달.
+	장점:
+		전달하려는 입력값에 대한 정보가 쉽게 외부에 노출되지 않는다.
+		전달하려는 데이터의 크기에 한계가 없다.
+	-html의 폼테그를 통해서만 전달이 가능.
+
+서버에서의 입력값 처리(php)
