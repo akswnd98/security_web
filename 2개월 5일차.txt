@@ -1,0 +1,37 @@
+	<vulnerability>
+
+1. client side script language
+	- html, javascript, xml, ...
+	
+	1. xss(cross site scripting)
+		- javascript 이용.
+		- 불특정 다수를 대상으로.
+		- 악의적인지 아닌지 판단이 쉽지 않음.
+		
+		1. stored xss: 스크립트를 그냥 저장.
+			* alert함수를 주로 이용 -> 실제로 실행되면 취약점임.
+			* 참고로 실무에서는 모든 페이지의 모든 입력에 대해서 전부 테스트 해야함.
+		2. reflected xss: 
+			http://192.168.3.247/zboard/check_user_id.php?user_id=asdf
+			-> http://192.168.3.247/zboard/check_user_id.php?user_id=<script>alert("hello?")</script>
+			하지만 대부분의 브라우저에서 걸리므로, 설정을 해제 해야만 먹힘.
+			* 공격을 하고 공격을 받는 것이 과연 취약점일까? -> 어쨌든 스크립트가 실행이 되면 취약한거임.
+			* 공격의 예: 링크를 활용 + shorten url, ...
+
+		xss 차단
+			1. 스크립트의 입력을 차단
+				- 문자열 필터링을 통한 차단: 예를 들어, <script>를 필터링.
+				- 우회하려면? -> <SCRIPT>로 쓰면 됨. 즉 상상하지 못한 우회기법이 존재할 수 있다.
+				- php의 preg_match함수를 이용하면 정규표현식 필터링이 가능하다.
+
+			2. 스크립트의 실행을 차단
+				-대부분의 웹 브라우저들이 사용.
+				
+
+2. server side script language
+	- php, jsp, asp, python, ruby, ...
+
+3. sql
+	- mysql, mssql, oracle, ... <- dbms
+
+* secure coding: 기획 -> 설계 -> 구현 -> 배포 -> 유지보수 중 유지보수를 제외한 단계에서 보안을 고려하여 코딩함.
