@@ -1,5 +1,5 @@
 csrf(cross site request forgery)
-	-xss의 변종기법: xss와 변조를 합침.
+	-xss의 변종기법: xss와 변조를 합침. xss의 응용.
 	-스크립트를 사용하지 않고 html 태크를 사용하여 취약점을 공략.
 
 	실습
@@ -19,3 +19,5 @@ csrf(cross site request forgery)
 			<input>, <button>, <submit>, <select>, <textarea>, <label>, <option>, <fieldlist>, <legend>, <optgroup>, <datalist>, <keygen>, <output>
 
 		하지만 이 사이트의 경우 관리자로 로그인을 한다음에 주어지는 쿠키나 세션으로 식별이 되는 자만 변경이 가능.
+		그래서 관리자가 내 글을 보는 순간 자동으로 위의 GET요청을 하도록 해서 나의 권한을 관리자 권한으로 바꾸도록 함.
+		여기선 img태그에 src속성을 위의 get요청으로 설정. 하지만 img가 아니더라도 가능한 태그들은 많다.
