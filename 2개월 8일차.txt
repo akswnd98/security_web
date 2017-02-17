@@ -1,0 +1,48 @@
+session_destroy(): 세션 파일 안에 있는 정보만 없어짐.
+setcookie()를 통해서 phpsession쿠키를 지워주면 됨. -> 완벽하게 지워짐.
+세션 하이젝킹: SESSID를 예측 해서 로그인 없이 접근.
+
+해시(hash)
+	평문 -> |해시 알고리즘(키 X)| -> 해시값.
+	즉 가역적이지 않음. 단방향 함수.
+	평문의 길이와 상관없이 항상 동일한 길이의 해시값이 나온다.
+	- md5, sha-1, sha-2, ... <- 해시 알고리즘.
+	브로드포스트: 모든 문자열들을 hash해서 타겟hash값과 비교.
+
+암호화(encrypt)
+	평문 -> |암호화 알고리즘(키 O)| -> 암호문
+	가역적임.
+	평문의 길이에 따라 암호문의 길이가 다르다.
+
+php file upload 취약점
+	1. cli를 통한 실행.
+	2. 웹 브라우저를 통한 php파일에 대한 직접접근.
+	
+	조건
+		1. 타겟 서버에 내가 실행하길 원하는 php파일을 업로드할 수 있음.
+		2. 웹 브라우저를 통해 접근이 가능.
+
+		파일에 대한 직접참조가 가능하면 취약.
+	
+	가설
+		1. 확장자가 꼭 php 이어야 하는가?
+		2. 다른 확장자는 실행할 수 없는가?
+
+* 아파치 홈 디렉토리: /etc/httpd		
+* 아파치 php 설정파일: /etc/httpd/conf.d/php.conf
+* AddHandler와 AddType이 php파일로 인식되는 확장자명을 정함.
+
+	서버에 잇는 설정파일에 손을 대지 않고 설정을 변경할 수 있는 방법?
+
+아파치 설정에 대한 이해:
+	아파치 웹 인증 설정
+		1. 글로벌 설정 파일: /etc/httpd/conf/httpd.conf (php.conf 도 글로벌 설정 파일임.)
+			잘보면 Include conf.d/*.conf라는 구문이 있음을 볼 수 있음.
+
+		2. <Directory "/var/www/html"> ... </Directory> 문서 루트 디렉토리에 적용될 설정.
+	
+		3. 아파치 웹 인증을 위한 설정.
+			AuthType Basic
+			AuthName "~~~": 중요하지 않음.
+			AuthUserFile /var/www/html/.htpasswd: 유저와 패스워드. (굳이 .htpasswd가 아니여도 됨.)
+			Require valid-user: 인증된 유저만 필요로 한다라는 뜻.
