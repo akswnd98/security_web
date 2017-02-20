@@ -1,0 +1,49 @@
+		<apache 인증>
+
+	1. 사용자 생성(처음 파일을 만드는 경우)
+		htpasswd -c /var/www/html/.htpasswd <user_name>
+
+	2. 사용자 생성(파일에 사용자를 추가하는 경우)
+		htpasswd /var/www/html/.htpasswd <user_name>
+
+	apache인증의 경우 http 해더의 Authorization필드 값을 통하여 마치 쿠키처럼 사용하므로
+	인증은 Authorization필드 값이 지워질 때까지 필요없다.
+
+아파치 설정 파일: /etc/httpd/conf/httpd.conf
+
+글로벌 설정파일: <Directory /var/www/html> ... </Directory>
+
+로컬 설정파일: 
+	글로벌 설정파일에서 AccessFileName .htaccess라고 적으면
+	특정 디렉토리의 .htaccess파일에 설정을 하면 그 디렉토리에만 적용이됨.
+
+.htaccess에
+AddHandler php5-script .~~~
+AddType text/html .~~~
+를 넣고 확장자가 .~~~인 php파일을 같이 업로드하면
+-->>그 디렉토리에서는 확장자 우회가 가능하다.
+
+* 사용하는 자원들에 대한 지식이 있으면 안되는 것을 되게할 수 있음.
+
+* 원격 쉘 흭득
+
+		<원격 쉘>
+	
+	1. 웹 쉘: 웹을 통해서
+		- php의 system함수가 문자열로 전달된 인수값을 쉘을 통해서 실행하는 함수.
+		- c99shell같은.
+
+	2. 바인드 쉘:
+		- tcp 통신을 이용한 원격 쉘
+		- 서버에다가 강제적으로 ncat이나 ssh같은 프로그램으로 포트를 염.(포트를 열다->bind)
+
+	3. 리버스 쉘:
+		- tcp 통신을 이용한 원격 쉘
+		- 서버에 클라이언트를 두고 해커 호스트에 서버를 둔다.
+		- 서버측에 방화벽이 있을 수도 있으므로.
+		
+	
+	netcat
+		- 클라이언트와 서버간의 tcp통신이 가능
+
+	* xshell이 정말 좋음
