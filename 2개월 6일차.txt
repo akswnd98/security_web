@@ -1,6 +1,6 @@
 csrf(cross site request forgery)
-	-xss의 변종기법: xss와 변조를 합침. xss의 응용.
-	-스크립트를 사용하지 않고 html 태크를 사용하여 취약점을 공략.
+	- xss의 변종기법: xss와 변조를 합침. xss의 응용.
+	- 스크립트를 사용하지 않고 html 태크를 사용하여 취약점을 공략.
 
 	실습
 		1. GET 요청 만들기
