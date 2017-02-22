@@ -1,0 +1,116 @@
+<DDL>
+
+	- CREATE, DROP
+
+</DDL>
+
+<DML>
+
+	- INSERT(추가/입력/삽입), SELECT(확인), UPDATE(수정), DELETE(삭제)
+
+	<INSERT>
+
+		INSERT INTO <table name> VALUES(<value1>, <value2>, ...);
+		INSERT INTO <table name>(<col name1>, <col name2>, ...) VALUES(<value1>, <value2>, ...);
+
+	</INSERT>
+
+	<SELECT>
+	
+		- 내용을 화면에 출력하고자 할 때 사용.
+		- DB의 출력문.
+
+		SELECT <anything>;
+		SELECT <col name1>, <col name2>, ... FROM <table name>;
+		SELECT * FROM <table name>;
+		SELECT <col name>... FROM <table name> WHERE <condition>;
+	
+	</SELECT>
+
+	<UPDATE>
+
+		UPDATE <table name> SET <col name>=<value>;
+			다 바꿈.
+	
+		UPDATE <table name> SET <col name>=<value> WHERE <condition>;
+
+	</UPDATE>
+
+	<DELETE>
+
+		DELETE FROM <table name>;
+			다 지움.
+
+		DELETE FROM <table name> WHERE <condition>;
+
+		* 이것은 데이터를 지우는 것이지 table을 지우지는 않는다.
+		* column을 지우는 것은 DDL에 속한다.
+
+	</DELETE>
+
+</DML>
+
+<SQL Injection>
+
+	<php file download vulnerabillity>
+
+		- 다운로드를 할 때 sql injection취약점이 존재.
+		
+		<분석>
+			1. 먼저 소스를 보고 링크를 누르면 어떻게 파일이 다운로드가 되는지 확인한다.
+				<a href='download.php?id=web_test&page=1&page_num=20&category=&sn=off&ss=off&sc=off&keyword=&prev_no=&select_arrange=headnum&desc=asc&no=15&filenum=2'>justfile.txt (9 B)</a>
+
+			2. zboard에서 download.php확인.
+
+			3. download.php분석, 변수들 분석, 외부 변수, 로컬 변수 구분 등.
+
+			* mysqld_safe --log=query.log &: mysqld를 내맘대로 실행 -> 옵션입력이 가능.
+
+			4. 변수값(입력값) 조작
+		
+		</분석>
+
+		<인젝션 공격>
+	
+			어떻게 해서든 공격적인 변수값을 만들어야함.
+			href='download.php?id=web_test&page=1&page_num=20&category=&sn=off&ss=off&sc=off&keyword=&prev_no=&select_arrange=headnum&desc=asc&no=15&filenum=1=100,%20memo=concat('hello', "<script>alert('hello');</script>")%20where no=15%20%23
+			그러기 위해 주석을 이용하는 방법도 있음.
+
+			<mysql comment>
+
+				--: sql 표준
+				#: mysql이 제공
+				/* */: sql 표준
+
+			</mysql comment>
+			하지만 그냥 #을 넣으면 url encoding에 의해 다르게 변함.
+			
+			<URL encoding>
+				
+				- 공백 -> +, %20
+				- %아스키코드값
+				특수문자가 적용이 안될 때에는 %아스키코드값으로 표현한다.
+
+			</URL encoding>
+
+			본문을 수정해 보자.
+			본문을 저장하는 column은 memo이다.
+			concat(memo, "code")를 통해서 내가 원하는 코드를 본문에 삽입하자.
+			
+			xss와 sqlinjection의 콜라보.
+
+		</인젝션 공격>
+
+		<인젝션 방어>
+			
+			- string타입의 인젝션에 한해서는.
+			- php.ini의 설정에 magic_quotes_gpc설정을 하면 '나 "에 \을 붙여 \'나 \"로 바꾼다.
+			- 하지만 버전업이 되면서 사라졌다.
+			- 너무 비효율적임. magic_quotes_gpc는 전체를 통괄하는 설정이기 때문.
+			- 대신 함수를 통해서 부분적으로 magic_quotes를 제공.
+
+		</인젝션 방어>
+
+	</php file download vulnerabillity>
+
+</SQL Injection>
