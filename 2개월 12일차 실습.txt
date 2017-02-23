@@ -1,0 +1,39 @@
+<blind SQL injection>
+
+	1. 블라인드 인젝션 취약점이 존재하는 php 프로그램을 작성.
+	
+	<테스트용 데이터 베이스>
+
+		DB: blind
+		table: 3개
+			news: no, title, news
+			fnews: no, title, news, bigo
+			anews: no, title
+		
+		데이터는 각 테이블마다 2 ~ 3개 정도 임의로 입력.
+
+	</테스트용 데이터 베이스>
+
+	2. php 테스트 프로그램을 작성
+		<php mysql라이브러리 함수>
+
+			<?php
+				mysql_connect('localhost', 'root', 'abcde1234');
+				mysql_select_db('blind');
+	
+				$query = "select * from news where no=" . $_GET[no]; 
+					-> 입력값을 검증하지 않음. 취약함. injection가능
+				$resource = mysql_query($query);
+	
+				if($resource) {
+					echo "welcome news site!!! <br><br>";
+					while($row = mysql_fetch_array($resource, MYSQL_BOTH)) {
+						echo "title: $row[title] <br>";
+						echo "news: <br> $row[news] <br>";
+					}
+				}
+			?>
+
+		</php mysql라이브러리 함수>
+
+</blind SQL injection>
