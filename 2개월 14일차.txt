@@ -1,0 +1,48 @@
+<mysql_fetch_array>
+	
+	질의에 만족하는 행들에 대한 배열을 리턴함.
+
+</mysql_fetch_array>
+
+<mysql_num_rows>
+
+	질의에 만족하는 행의 개수를 리턴함.
+
+</mysql_num_rows>
+
+* sql injection의 경우에는 내가 입력한 값이 잘못된 쿼리문으로라도 인식해서 에러가 나게 하는 방법을 찾아야만 한다.
+
+<numeric injection>
+
+	numeric injection: 인젝션 취약점이 존재하는 부분의 입력의 형태가 정수일 때.
+
+	* select * from news where no=1 asdf
+		asdf를 쿼리문으로 인식하기 때문에 에러가 남.
+
+	* select * from news where no='asdf'
+		'asdf'를 값으로 인식하기 때문에 에러는 나지 않음.
+
+	즉 쿼리를 추가하지 못하게 하기 위해서 띄어쓰기를 막으면 된다.
+
+	그리고 공격자는 입력값을 쿼리문으로 인식하게끔 조작해야 한다.
+
+</numeric injection>
+
+<string injection>
+
+	string injection: 인젝션 취약점이 존재하는 부분의 입력의 형태가 문자열일 때.
+	
+	magic_quotes옵션을 실행 시켰을 시
+	입력값에 띄어쓰기가 있더라도 우회가 불가능하다.
+	왜냐하면 띄어쓰기가 있더라도 그냥 문자열로 인식이 되어 에러를 낼 수 없기 때문이다. 
+
+</string injection>
+
+<퍼징>
+
+	자동화를 통해서 무작위로 값을 계속 입력하여 에러가 나게 함.
+	그리고 에러가 난 부분에 취약점이 존재할 수 있음.
+
+</퍼징>
+
+* 다양한 인증방식들을 경험을 통해 아는 것도 중요하다.
