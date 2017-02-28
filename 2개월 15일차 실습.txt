@@ -1,0 +1,63 @@
+<natas2>
+
+	<정보노출 취약점>
+		
+		Directory index취약점이라고도 함.
+		
+		1. 아파치 설정에 index 기능을 제거.
+			아파치 설정에서 Option의 Indexes를 설정하지 않으면 됨.
+
+		2. 기본페이지를 사용: index.html, index.php같은
+			DirectoryIndex ...에 기본페이지 이름 등록.
+
+	</정보노출 취약점>
+
+</natas2>
+
+<natas3>
+
+	1. robots.txt: 검색을 허용하는 파일을 적시함. 즉 수집되지 않았으면 하는 파일이나 디렉토리를 적시.
+
+</natas3>
+
+<natas4>
+
+	referrer을 변조해야함.
+	웹 프록시를 이용한 패킷 위/변조
+	
+	<프록시>
+		
+		원래는 프록시 서버를 둬서 트레픽을 분산 시키고자 함.
+		요즘은 ip세탁이나 우회의 용도로 사용.
+
+		툴로는 paros, burp suite, webscarab, zed proxy가 있다.
+	
+		프록시를 사용할 때 크롬 기본설정은 프록시를 허용하지 않으므로 설정을 통해서
+		프록시를 허용해야 한다.
+
+	</프록시>
+
+	<nc를 이용한 방법>
+
+		도메인과 포트 80번으로 연결 가능함.
+		http패킷을 써 넣음.
+
+	</nc를 이용한 방법>
+
+	<php script>
+
+		직접 http를 작성해 보낸다.
+		<php socket programming>
+			
+			socket_create() -> 소켓 생성
+			socket_connect() -> 소켓 연결 address인자에 도메인을 넣을 수 있다.
+			socket_send() -> 데이터 전송
+			socket_recv() -> 데이터 수신
+
+			php.net참고
+
+		</php socket programming>
+
+	</php script>
+
+</natas4>

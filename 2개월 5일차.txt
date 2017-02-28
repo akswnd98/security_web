@@ -11,6 +11,7 @@
 		1. stored xss: 스크립트를 그냥 저장.
 			* alert함수를 주로 이용 -> 실제로 실행되면 취약점임.
 			* 참고로 실무에서는 모든 페이지의 모든 입력에 대해서 전부 테스트 해야함.
+
 		2. reflected xss: 
 			http://192.168.3.247/zboard/check_user_id.php?user_id=asdf
 			-> http://192.168.3.247/zboard/check_user_id.php?user_id=<script>alert("hello?")</script>
@@ -27,7 +28,6 @@
 			2. 스크립트의 실행을 차단
 				-대부분의 웹 브라우저들이 사용.
 				
-
 2. server side script language
 	- php, jsp, asp, python, ruby, ...
 
